@@ -1,21 +1,12 @@
 package com.project.travelbuddy.DTO;
 
 public class MessageRequest {
+    private String username;
     private String text;
 
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public MessageRequest(String message) {
-        this.text = message;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String message) {
-        this.text = message;
-    }
-
-    public MessageRequest() {
-    }
+    public String getText() { return text; }
+    public void setText(String text) { this.text = text; }
 }

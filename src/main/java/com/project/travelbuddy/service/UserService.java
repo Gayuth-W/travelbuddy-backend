@@ -11,11 +11,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getOrCreateUser(String externalId, String username, String email, String avatarUrl) {
+    // Add a new user
+    public User addUser(String externalId, String username, String email) {
+        User user = new User(externalId, username, email);
+        return userRepository.save(user);
+    }
+
+    // Optional: find by externalId
+    public User getUserByExternalId(String externalId) {
         return userRepository.findByExternalId(externalId)
-                .orElseGet(() -> {
-                    User user = new User(externalId, username, email, avatarUrl);
-                    return userRepository.save(user);
-                });
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
