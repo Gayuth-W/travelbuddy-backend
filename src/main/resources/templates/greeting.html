@@ -1,13 +1,27 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Expat Chat Platform</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
-<p th:text="|Hello, ${name}!|" />
-</body>
 
+<!-- Show logout button if authenticated -->
+<div sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+
+<!-- Show login link if not authenticated -->
+<div sec:authorize="!isAuthenticated()">
+    <a th:href="@{/oauth2/authorization/asgardeo}">Login with Asgardeo</a>
+</div>
+
+<!-- Show username if authenticated -->
+<p th:text="|Hello, ${#authentication.principal.attributes['username']}! Welcome to Expat Chat Platform|"></p>
+
+</body>
 </html>
